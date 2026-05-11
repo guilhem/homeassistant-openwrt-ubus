@@ -76,6 +76,52 @@ CONFIG_SCHEMA = vol.Schema(
 )
 
 
+def _coordinator_entry_id(coordinator) -> str | None:
+    """Return the config entry ID associated with a coordinator, if available."""
+    data_manager = getattr(coordinator, "data_manager", None)
+    entry = getattr(data_manager, "entry", None)
+    return getattr(entry, "entry_id", None)
+
+
+def _iter_refreshable_coordinators(hass: HomeAssistant, entry_id: str | None = None) -> list:
+    """Return unique coordinators that can be manually refreshed."""
+    domain_data = hass.data.get(DOMAIN, {})
+    coordinators = []
+    seen = set()
+
+    for key, value in domain_data.items():
+        if key != "coordinators" and not key.endswith("_coordinators"):
+            continue
+
+        if isinstance(value, dict):
+            candidates = value.values()
+        elif isinstance(value, (list, tuple, set)):
+            candidates = value
+        else:
+            candidates = (value,)
+
+        for coordinator in candidates:
+            if not hasattr(coordinator, "async_request_refresh"):
+                continue
+            if entry_id is not None and _coordinator_entry_id(coordinator) != entry_id:
+                continue
+            coordinator_id = id(coordinator)
+            if coordinator_id in seen:
+                continue
+            seen.add(coordinator_id)
+            coordinators.append(coordinator)
+
+    return coordinators
+
+
+async def _async_refresh_coordinators(hass: HomeAssistant, entry_id: str | None = None) -> int:
+    """Refresh known update coordinators and return the number refreshed."""
+    coordinators = _iter_refreshable_coordinators(hass, entry_id)
+    for coordinator in coordinators:
+        await coordinator.async_request_refresh()
+    return len(coordinators)
+
+
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     """Set up the openwrt ubus component."""
     if DOMAIN not in config:
@@ -181,9 +227,18 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         # Create shared data manager
         data_manager = SharedUbusDataManager(hass, entry)
         hass.data[DOMAIN][f"data_manager_{entry.entry_id}"] = data_manager
-        # Register UCI services once per integration domain
+        # Register services once per integration domain
         if not hass.data[DOMAIN].get("uci_services_registered"):
             hass.data[DOMAIN]["uci_services_registered"] = True
+
+            async def async_handle_scan_devices(call):
+                """Handle openwrt_ubus.scan_devices service."""
+                entry_id = call.data.get("entry_id")
+                refreshed_count = await _async_refresh_coordinators(hass, entry_id)
+                if entry_id and refreshed_count == 0:
+                    _LOGGER.warning("No refreshable OpenWrt coordinators found for entry_id %s", entry_id)
+                else:
+                    _LOGGER.debug("Refreshed %d OpenWrt coordinators", refreshed_count)
 
             async def async_handle_uci_get(call):
                 """Handle openwrt_ubus.uci_get service."""
@@ -310,6 +365,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
                             )
                         except Exception as exc:
                             _LOGGER.warning("Failed to restart service %s: %s", service_name, exc)
+
+            hass.services.async_register(
+                DOMAIN,
+                "scan_devices",
+                async_handle_scan_devices,
+            )
 
             hass.services.async_register(
                 DOMAIN,
@@ -474,7 +535,7 @@ async def _cleanup_disabled_sensor_devices(hass: HomeAssistant, entry: ConfigEnt
         for name, enabled, main_id in sensors:
             if enabled:
                 continue
-            main_device = device_registry.async_get_device(identifiers={(DOMAIN, f"{host}_eth")})
+            main_device = device_registry.async_get_device(identifiers={(DOMAIN, main_id)})
             if not main_device:
                 continue
             removed_count = 0

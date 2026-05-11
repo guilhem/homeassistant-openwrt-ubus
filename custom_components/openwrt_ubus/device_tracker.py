@@ -70,6 +70,19 @@ def _generate_unique_id(host: str, mac_address: str, tracking_method: str) -> st
         return f"{host}_{mac_address}"
 
 
+def _device_matches_wireless_whitelist(mac_address: str, device_info: dict, whitelist: list[str]) -> bool:
+    """Return True if a wireless device matches the MAC/IP whitelist."""
+    if not whitelist:
+        return True
+
+    ip_address = device_info.get("ip_address") or device_info.get("ip", "")
+    mac_upper = mac_address.upper()
+    return any(
+        mac_upper.startswith(prefix.upper()) or (ip_address and str(ip_address).startswith(prefix))
+        for prefix in whitelist
+    )
+
+
 async def _migrate_device_tracker_unique_ids(
     hass: HomeAssistant,
     entry: ConfigEntry,
@@ -267,13 +280,7 @@ async def async_setup_entry(
             device_stats = coordinator.data["device_statistics"]
             if wireless_whitelist:
                 for mac, device_info in device_stats.items():
-                    ip_address = device_info.get("ip", "")
-                    mac_upper = mac.upper()
-                    if any(
-                        mac_upper.startswith(prefix.upper()) or 
-                        (ip_address and ip_address.startswith(prefix))
-                        for prefix in wireless_whitelist
-                    ):
+                    if _device_matches_wireless_whitelist(mac, device_info, wireless_whitelist):
                         all_devices[mac] = device_info
             else:
                 all_devices.update(device_stats)
@@ -317,13 +324,7 @@ async def async_setup_entry(
             device_stats = coordinator.data["device_statistics"]
             if wireless_whitelist:
                 for mac, device_info in device_stats.items():
-                    ip_address = device_info.get("ip", "")
-                    mac_upper = mac.upper()
-                    if any(
-                        mac_upper.startswith(prefix.upper()) or 
-                        (ip_address and ip_address.startswith(prefix))
-                        for prefix in wireless_whitelist
-                    ):
+                    if _device_matches_wireless_whitelist(mac, device_info, wireless_whitelist):
                         all_devices[mac] = device_info
             else:
                 all_devices.update(device_stats)

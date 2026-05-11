@@ -6,6 +6,13 @@ scan_devices:
   target:
     entity:
       integration: openwrt_ubus
+  fields:
+    entry_id:
+      name: Config entry ID
+      description: Optional OpenWrt ubus config entry ID to refresh. Leave empty to refresh all OpenWrt ubus coordinators.
+      required: false
+      selector:
+        text:
 uci_get:
   name: UCI get
   description: Read a UCI value via ubus on the OpenWrt router and optionally write it to a sensor
