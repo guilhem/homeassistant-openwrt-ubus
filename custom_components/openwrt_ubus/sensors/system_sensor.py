@@ -26,6 +26,7 @@ from homeassistant.const import (
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.device_registry import DeviceInfo
+from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
@@ -59,7 +60,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.TOTAL_INCREASING,
         native_unit_of_measurement=UnitOfTime.SECONDS,
         suggested_unit_of_measurement=UnitOfTime.HOURS,
-        entity_category=None,  # Main sensor, not diagnostic
+        entity_category=EntityCategory.DIAGNOSTIC,
         icon="mdi:clock-outline",
     ),
     SensorEntityDescription(
@@ -68,7 +69,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=None,
         icon="mdi:connection",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="load_1",
@@ -76,7 +77,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement="%",
         icon="mdi:speedometer",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="load_5",
@@ -84,7 +85,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement="%",
         icon="mdi:speedometer",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="load_15",
@@ -92,7 +93,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement="%",
         icon="mdi:speedometer",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="cpu_usage",
@@ -100,7 +101,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement="%",
         icon="mdi:cpu-64-bit",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="memory_total",
@@ -108,7 +109,7 @@ SENSOR_DESCRIPTIONS = [
         device_class=SensorDeviceClass.DATA_SIZE,
         native_unit_of_measurement=UnitOfInformation.MEGABYTES,
         icon="mdi:memory",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="memory_free",
@@ -117,7 +118,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=UnitOfInformation.MEGABYTES,
         icon="mdi:memory",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="dhcp_clients_count",
@@ -125,7 +126,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=None,
         icon="mdi:account-multiple",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="memory_buffered",
@@ -134,7 +135,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=UnitOfInformation.MEGABYTES,
         icon="mdi:memory",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="memory_shared",
@@ -143,7 +144,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=UnitOfInformation.MEGABYTES,
         icon="mdi:memory",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="memory_usage_percent",
@@ -151,7 +152,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=PERCENTAGE,
         icon="mdi:memory",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="swap_total",
@@ -159,7 +160,7 @@ SENSOR_DESCRIPTIONS = [
         device_class=SensorDeviceClass.DATA_SIZE,
         native_unit_of_measurement=UnitOfInformation.MEGABYTES,
         icon="mdi:harddisk",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="swap_free",
@@ -168,32 +169,32 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=UnitOfInformation.MEGABYTES,
         icon="mdi:harddisk",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     # Board/Hardware information sensors
     SensorEntityDescription(
         key="board_kernel",
         name="Kernel Version",
         icon="mdi:chip",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="board_hostname",
         name="Hostname",
         icon="mdi:router-network",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="board_model",
         name="Board Model",
         icon="mdi:developer-board",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="board_system",
         name="System",
         icon="mdi:chip",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="root_filesystem_free",
@@ -201,7 +202,7 @@ SENSOR_DESCRIPTIONS = [
         device_class=SensorDeviceClass.DATA_SIZE,
         native_unit_of_measurement=UnitOfInformation.MEGABYTES,
         icon="mdi:harddisk",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="root_filesystem_total",
@@ -209,7 +210,7 @@ SENSOR_DESCRIPTIONS = [
         device_class=SensorDeviceClass.DATA_SIZE,
         native_unit_of_measurement=UnitOfInformation.MEGABYTES,
         icon="mdi:harddisk",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
 ]
 
@@ -271,7 +272,7 @@ async def async_setup_entry(
                 state_class=SensorStateClass.MEASUREMENT,
                 native_unit_of_measurement=UnitOfTemperature.CELSIUS,
                 icon="mdi:thermometer",
-                entity_category=None,
+                entity_category=EntityCategory.DIAGNOSTIC,
             )
             entities.append(SystemInfoSensor(coordinator, temp_description))
 

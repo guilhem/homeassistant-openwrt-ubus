@@ -55,7 +55,7 @@ INTERFACE_SENSOR_DESCRIPTIONS = [
         native_unit_of_measurement=UnitOfTime.SECONDS,
         suggested_unit_of_measurement=UnitOfTime.DAYS,
         icon="mdi:timer-outline",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="enabled",
@@ -73,7 +73,7 @@ INTERFACE_SENSOR_DESCRIPTIONS = [
         key="tracking",
         name="Tracking",
         icon="mdi:target",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="up",

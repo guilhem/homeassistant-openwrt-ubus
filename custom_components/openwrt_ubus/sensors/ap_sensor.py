@@ -23,6 +23,7 @@ from homeassistant.const import (
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr, entity_registry as er
 from homeassistant.helpers.device_registry import DeviceInfo
+from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
@@ -166,19 +167,19 @@ SENSOR_DESCRIPTIONS = [
         key="ssid",
         name="SSID",
         icon="mdi:wifi",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="bssid",
         name="BSSID",
         icon="mdi:access-point",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="channel",
         name="Channel",
         icon="mdi:wifi-marker",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="frequency",
@@ -186,14 +187,14 @@ SENSOR_DESCRIPTIONS = [
         device_class=SensorDeviceClass.FREQUENCY,
         native_unit_of_measurement=UnitOfFrequency.MEGAHERTZ,
         icon="mdi:sine-wave",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="txpower",
         name="TX Power",
         native_unit_of_measurement="dBm",
         icon="mdi:transmission-tower",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="quality",
@@ -201,7 +202,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=PERCENTAGE,
         icon="mdi:signal",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="signal",
@@ -210,7 +211,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement="dBm",
         icon="mdi:signal",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="noise",
@@ -219,7 +220,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement="dBm",
         icon="mdi:signal-variant",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="bitrate",
@@ -229,31 +230,31 @@ SENSOR_DESCRIPTIONS = [
         native_unit_of_measurement=UnitOfDataRate.KILOBITS_PER_SECOND,
         suggested_unit_of_measurement=UnitOfDataRate.MEGABITS_PER_SECOND,
         icon="mdi:speedometer",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="mode",
         name="Mode",
         icon="mdi:wifi-cog",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="hwmode",
         name="Hardware Mode",
         icon="mdi:chip",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="htmode",
         name="HT Mode",
         icon="mdi:cog-box",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="country",
         name="Country",
         icon="mdi:flag",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="clients",

@@ -19,6 +19,7 @@ from homeassistant.const import CONF_HOST, UnitOfTime, UnitOfInformation, UnitOf
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.device_registry import DeviceInfo
+from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
@@ -223,7 +224,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement="dBm",
         icon="mdi:signal",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="signal_avg",
@@ -232,7 +233,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement="dBm",
         icon="mdi:signal",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="noise",
@@ -241,7 +242,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement="dBm",
         icon="mdi:signal-variant",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="connected_time",
@@ -251,7 +252,7 @@ SENSOR_DESCRIPTIONS = [
         native_unit_of_measurement=UnitOfTime.SECONDS,
         suggested_unit_of_measurement=UnitOfTime.HOURS,
         icon="mdi:clock-outline",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="rx_rate",
@@ -278,14 +279,14 @@ SENSOR_DESCRIPTIONS = [
         name="RX Packets",
         state_class=SensorStateClass.MEASUREMENT,
         icon="mdi:download",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="tx_packets",
         name="TX Packets",
         state_class=SensorStateClass.MEASUREMENT,
         icon="mdi:upload",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="rx_bytes",
@@ -329,7 +330,7 @@ SENSOR_DESCRIPTIONS = [
         key="online",
         name="Online",
         icon="mdi:wifi",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
 ]
 

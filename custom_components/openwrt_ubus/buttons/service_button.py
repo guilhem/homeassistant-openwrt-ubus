@@ -10,6 +10,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_HOST
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import DeviceInfo
+from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from ..const import (
@@ -56,6 +57,8 @@ async def async_setup_entry(
 
 class OpenwrtServiceRestartButton(ButtonEntity):
     """Representation of an OpenWrt service restart button."""
+
+    _attr_entity_category = EntityCategory.CONFIG
 
     def __init__(self, data_manager, service_name: str, entry: ConfigEntry) -> None:
         """Initialize the button."""

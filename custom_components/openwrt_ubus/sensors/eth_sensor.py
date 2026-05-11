@@ -20,6 +20,7 @@ from homeassistant.const import (
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.device_registry import DeviceInfo
+from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
@@ -56,6 +57,7 @@ SENSOR_DESCRIPTIONS = [
         key="mtu",
         name="MTU",
         icon="mdi:network",
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="rx_bytes",
@@ -78,36 +80,42 @@ SENSOR_DESCRIPTIONS = [
         name="RX Packets",
         state_class=SensorStateClass.TOTAL_INCREASING,
         icon="mdi:download",
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="tx_packets",
         name="TX Packets",
         state_class=SensorStateClass.TOTAL_INCREASING,
         icon="mdi:upload",
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="rx_errors",
         name="RX Errors",
         state_class=SensorStateClass.TOTAL_INCREASING,
         icon="mdi:alert-circle",
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="tx_errors",
         name="TX Errors",
         state_class=SensorStateClass.TOTAL_INCREASING,
         icon="mdi:alert-circle",
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="rx_dropped",
         name="RX Dropped",
         state_class=SensorStateClass.TOTAL_INCREASING,
         icon="mdi:alert-circle",
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="tx_dropped",
         name="TX Dropped",
         state_class=SensorStateClass.TOTAL_INCREASING,
         icon="mdi:alert-circle",
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
 ]
 

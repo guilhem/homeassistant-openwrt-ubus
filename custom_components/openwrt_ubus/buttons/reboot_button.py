@@ -10,6 +10,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_HOST
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import DeviceInfo
+from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from ..const import DOMAIN
@@ -34,6 +35,7 @@ class OpenwrtRebootButton(ButtonEntity):
     """Representation of an OpenWrt system reboot button."""
 
     _attr_device_class = ButtonDeviceClass.RESTART
+    _attr_entity_category = EntityCategory.CONFIG
     _attr_icon = "mdi:restart"
     _attr_entity_registry_enabled_default = True
 

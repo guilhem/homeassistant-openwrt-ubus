@@ -24,6 +24,7 @@ from homeassistant.const import (
 )
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import DeviceInfo
+from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
@@ -50,19 +51,19 @@ SENSOR_DESCRIPTIONS = [
         key="qmodem_manufacturer",
         name="Modem Manufacturer",
         icon="mdi:sim",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="qmodem_revision",
         name="Modem Revision",
         icon="mdi:sim",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="qmodem_at_port",
         name="Modem AT Port",
         icon="mdi:serial-port",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="qmodem_temperature",
@@ -70,7 +71,7 @@ SENSOR_DESCRIPTIONS = [
         icon="mdi:thermometer",
         device_class=SensorDeviceClass.TEMPERATURE,
         native_unit_of_measurement=UnitOfTemperature.CELSIUS,
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="qmodem_voltage",
@@ -80,7 +81,7 @@ SENSOR_DESCRIPTIONS = [
         native_unit_of_measurement=UnitOfElectricPotential.MILLIVOLT,
         suggested_unit_of_measurement=UnitOfElectricPotential.VOLT,
         suggested_display_precision=3,
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="qmodem_connect_status",
@@ -105,25 +106,25 @@ SENSOR_DESCRIPTIONS = [
         key="qmodem_sim_slot",
         name="SIM Slot",
         icon="mdi:sim",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="qmodem_imei",
         name="IMEI",
         icon="mdi:sim",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="qmodem_imsi",
         name="IMSI",
         icon="mdi:sim",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="qmodem_iccid",
         name="ICCID",
         icon="mdi:sim",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     # QModem Signal Quality sensors (progress_bar type)
     SensorEntityDescription(
@@ -133,7 +134,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
         icon="mdi:signal-cellular-3",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="qmodem_lte_rsrq",
@@ -142,7 +143,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS,
         icon="mdi:signal-cellular-3",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="qmodem_lte_rssi",
@@ -151,7 +152,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
         icon="mdi:signal-cellular-3",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="qmodem_lte_sinr",
@@ -160,7 +161,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS,
         icon="mdi:signal-cellular-3",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="qmodem_nr5g_rsrp",
@@ -169,7 +170,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
         icon="mdi:signal-5g",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="qmodem_nr5g_rsrq",
@@ -178,7 +179,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS,
         icon="mdi:signal-5g",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     SensorEntityDescription(
         key="qmodem_nr5g_sinr",
@@ -187,7 +188,7 @@ SENSOR_DESCRIPTIONS = [
         state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=SIGNAL_STRENGTH_DECIBELS,
         icon="mdi:signal-5g",
-        entity_category=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
 ]
 
