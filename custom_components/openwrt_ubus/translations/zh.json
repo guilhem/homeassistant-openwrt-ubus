@@ -48,7 +48,8 @@
           "qmodem_sensor_timeout": "调制解调器传感器更新间隔（秒）",
           "sta_sensor_timeout": "站点传感器更新间隔（秒）",
           "ap_sensor_timeout": "接入点传感器更新间隔（秒）",
-          "service_timeout": "服务状态更新间隔（秒）"
+          "service_timeout": "服务状态更新间隔（秒）",
+          "mwan3_sensor_timeout": "mwan3 状态更新间隔（秒）"
         }
       }
     },
@@ -95,6 +96,7 @@
           "sta_sensor_timeout": "站点传感器更新间隔（秒）",
           "ap_sensor_timeout": "接入点传感器更新间隔（秒）",
           "mwan3_sensor_timeout": "mwan3 状态更新间隔（秒）",
+          "service_timeout": "服务状态更新间隔（秒）",
           "tracking_method": "设备跟踪方法"
         },
         "data_description": {
@@ -113,10 +115,13 @@
           "enable_device_kick_buttons": "启用从接入点断开设备的按钮（需要 hostapd）",
           "enable_wired_tracker": "使用 IP 邻居表跟踪有线设备（过滤 WiFi 设备）",
           "wired_tracker_name_priority": "当找不到主机名时，使用 IPv4、IPv6 还是 MAC 地址作为设备名称",
-          "wired_tracker_whitelist": "要跟踪的 IP 或 MAC 前缀列表，用逗号分隔（例如：192.168.1,fe80,AA:BB:CC）。留空则跟踪所有非 WiFi 设备",          "wired_tracker_interfaces": "要跟踪的网络接口列表，用逗号分隔（例如 br-lan,eth0）。留空表示跟踪所有接口。用于过滤不需要的设备",          "system_sensor_timeout": "系统传感器数据更新频率（10-300 秒）",
+          "wired_tracker_whitelist": "要跟踪的 IP 或 MAC 前缀列表，用逗号分隔（例如：192.168.1,fe80,AA:BB:CC）。留空则跟踪所有非 WiFi 设备",
+          "wired_tracker_interfaces": "要跟踪的网络接口列表，用逗号分隔（例如 br-lan,eth0）。留空表示跟踪所有接口。用于过滤不需要的设备",
+          "system_sensor_timeout": "系统传感器数据更新频率（10-300 秒）",
           "qmodem_sensor_timeout": "调制解调器传感器数据更新频率（30-600 秒）",
           "sta_sensor_timeout": "站点设备数据更新频率（10-300 秒）",
           "ap_sensor_timeout": "接入点数据更新频率（30-600 秒）",
+          "service_timeout": "服务状态数据更新频率（10-300 秒）",
           "tracking_method": "设备跟踪方法：'uniqueid' 仅使用 MAC 地址（设备在 AP 间漫游），'combined' 使用 AP+MAC（每个 AP 单独的实体）",
           "mwan3_sensor_timeout": "mwan3 状态数据更新频率（30-600 秒）",
           "enable_mwan3_sensors": "监控 mwan3 多 WAN 负载均衡状态"

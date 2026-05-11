@@ -394,6 +394,10 @@ class OpenwrtUbusConfigFlow(ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             self._sensor_data.update(user_input)
 
+            # If wireless tracker is enabled, proceed to wireless tracker configuration
+            if self._sensor_data.get(CONF_ENABLE_WIRELESS_TRACKERS, False):
+                return await self.async_step_wireless_tracker_config()
+
             # If wired tracker is enabled, proceed to wired tracker configuration
             if self._sensor_data.get(CONF_ENABLE_WIRED_TRACKER, False):
                 return await self.async_step_wired_tracker_config()
@@ -753,6 +757,10 @@ class OpenwrtUbusOptionsFlow(OptionsFlow):
                     CONF_MWAN3_SENSOR_TIMEOUT,
                     default=current_data.get(CONF_MWAN3_SENSOR_TIMEOUT, DEFAULT_MWAN3_SENSOR_TIMEOUT),
                 ): vol.All(vol.Coerce(int), vol.Range(min=30, max=600)),
+                vol.Optional(
+                    CONF_SERVICE_TIMEOUT,
+                    default=current_data.get(CONF_SERVICE_TIMEOUT, DEFAULT_SERVICE_TIMEOUT),
+                ): vol.All(vol.Coerce(int), vol.Range(min=10, max=300)),
                 vol.Optional(
                     CONF_CONSIDER_HOME,
                     default=current_data.get(CONF_CONSIDER_HOME, DEFAULT_CONSIDER_HOME),

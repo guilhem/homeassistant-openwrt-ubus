@@ -57,7 +57,8 @@
           "qmodem_sensor_timeout": "Intervallo Aggiornamento Sensori QModem (secondi)",
           "sta_sensor_timeout": "Intervallo Aggiornamento Sensori Dispositivi Client (secondi)",
           "ap_sensor_timeout": "Intervallo Aggiornamento Sensori Access Point (secondi)",
-          "service_timeout": "Intervallo Aggiornamento Stato Servizi (secondi)"
+          "service_timeout": "Intervallo Aggiornamento Stato Servizi (secondi)",
+          "mwan3_sensor_timeout": "Intervallo Aggiornamento Stato mwan3 (secondi)"
         }
       }
     },
@@ -102,6 +103,8 @@
           "qmodem_sensor_timeout": "Intervallo Aggiornamento Sensori QModem (secondi)",
           "sta_sensor_timeout": "Intervallo Aggiornamento Sensori Dispositivi Client (secondi)",
           "ap_sensor_timeout": "Intervallo Aggiornamento Sensori Access Point (secondi)",
+          "mwan3_sensor_timeout": "Intervallo Aggiornamento Stato mwan3 (secondi)",
+          "service_timeout": "Intervallo Aggiornamento Stato Servizi (secondi)",
           "tracking_method": "Metodo di Tracciamento"
         },
         "data_description": {
@@ -122,6 +125,8 @@
           "qmodem_sensor_timeout": "Frequenza di aggiornamento dei dati dei sensori modem (30-600 secondi)",
           "sta_sensor_timeout": "Frequenza di aggiornamento dei dati dei dispositivi client (10-300 secondi)",
           "ap_sensor_timeout": "Frequenza di aggiornamento dei dati dell'Access Point (30-600 secondi)",
+          "mwan3_sensor_timeout": "Frequenza di aggiornamento dello stato mwan3 (30-600 secondi)",
+          "service_timeout": "Frequenza di aggiornamento dello stato dei servizi (10-300 secondi)",
           "tracking_method": "Metodo di tracciamento dei dispositivi: 'uniqueid' usa solo l'indirizzo MAC (dispositivo può spostarsi tra AP), 'combined' usa AP+MAC (entità separate per AP)"
         }
       }
