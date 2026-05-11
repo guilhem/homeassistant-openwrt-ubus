@@ -103,12 +103,16 @@ class Ubus:
             self.session = aiohttp.ClientSession()
             self._session_created_internally = True
 
+    def _session_needs_connect(self) -> bool:
+        """Return True when the ubus session is absent or close to expiry."""
+        return self.session_id is None or time.time() >= (self.session_expire - 15)
+
     async def _ensure_session_is_valid(self):
         """Ensure session is still valid, serialising reconnect attempts with a lock."""
-        if self.session_expire <= (time.time() - 15):
+        if self._session_needs_connect():
             async with self._connect_lock:
                 # Double-check: another coroutine may have reconnected while we waited
-                if self.session_expire <= (time.time() - 15):
+                if self._session_needs_connect():
                     await self.connect()
 
     async def api_call(
