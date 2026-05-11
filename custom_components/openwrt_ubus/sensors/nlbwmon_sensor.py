@@ -47,7 +47,11 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> SharedDataUpdateCoordinator | None:
     """Set up OpenWrt nlbwmon sensors from a config entry."""
-    nlbwmon_available = hass.data.get(DOMAIN, {}).get("nlbwmon_available", False)
+    availability = hass.data.get(DOMAIN, {}).get("availability", {}).get(entry.entry_id, {})
+    nlbwmon_available = availability.get(
+        "nlbwmon",
+        hass.data.get(DOMAIN, {}).get("nlbwmon_available", False),
+    )
     if not nlbwmon_available:
         _LOGGER.info("NLBWMon entities not created - nlbwmon is not available or not permitted")
         return None

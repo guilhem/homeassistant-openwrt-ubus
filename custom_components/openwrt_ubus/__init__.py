@@ -157,19 +157,21 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         modem_ctrl_available = await _check_availability(
             "Modem_ctrl", lambda: ubus.list_modem_ctrl()
         )
-        hass.data[DOMAIN]["modem_ctrl_available"] = modem_ctrl_available
 
         # Check for mwan3 availability and store the result
         mwan3_available = await _check_availability(
             "MWAN3", lambda: ubus.list_mwan3()
         )
-        hass.data[DOMAIN]["mwan3_available"] = mwan3_available
 
         # Check for nlbwmon availability/permission and store the result
         nlbwmon_available = await _check_availability(
             "nlbwmon", lambda: ubus.file_exec("/usr/sbin/nlbw", ["-h"])
         )
-        hass.data[DOMAIN]["nlbwmon_available"] = nlbwmon_available
+        hass.data[DOMAIN].setdefault("availability", {})[entry.entry_id] = {
+            "modem_ctrl": modem_ctrl_available,
+            "mwan3": mwan3_available,
+            "nlbwmon": nlbwmon_available,
+        }
 
         # Close the test connection — logout first to destroy the rpcd session,
         # otherwise the session lingers until rpcd's own 300 s GC runs.
@@ -521,11 +523,12 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         if "device_kick_coordinators" in hass.data[DOMAIN]:
             hass.data[DOMAIN]["device_kick_coordinators"].pop(entry.entry_id, None)
 
-        # Clean up modem_ctrl availability data if no more entries
-        if len([e for e in hass.config_entries.async_entries(DOMAIN) if e.entry_id != entry.entry_id]) == 0:
-            hass.data[DOMAIN].pop("modem_ctrl_available", None)
-
-        hass.data[DOMAIN].pop("mwan3_available", None)
+        # Clean up entry-specific availability data
+        availability = hass.data[DOMAIN].get("availability")
+        if isinstance(availability, dict):
+            availability.pop(entry.entry_id, None)
+            if not availability:
+                hass.data[DOMAIN].pop("availability", None)
 
     return unload_ok
 

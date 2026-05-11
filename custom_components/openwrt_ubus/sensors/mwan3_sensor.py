@@ -161,7 +161,11 @@ async def async_setup_entry(
 ) -> SharedDataUpdateCoordinator | None:
     """Set up OpenWrt MWAN3 sensors from a config entry."""
     # Check if mwan3 is available from the initial setup
-    mwan3_available = hass.data.get(DOMAIN, {}).get("mwan3_available", False)
+    availability = hass.data.get(DOMAIN, {}).get("availability", {}).get(entry.entry_id, {})
+    mwan3_available = availability.get(
+        "mwan3",
+        hass.data.get(DOMAIN, {}).get("mwan3_available", False),
+    )
 
     if not mwan3_available:
         _LOGGER.info("MWAN3 entities not created - mwan3 is not available")

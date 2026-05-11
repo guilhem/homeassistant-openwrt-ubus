@@ -200,7 +200,11 @@ async def async_setup_entry(
 ) -> SharedDataUpdateCoordinator | None:
     """Set up OpenWrt QModem sensors from a config entry."""
     # Check if modem_ctrl is available from the initial setup
-    modem_ctrl_available = hass.data.get(DOMAIN, {}).get("modem_ctrl_available", False)
+    availability = hass.data.get(DOMAIN, {}).get("availability", {}).get(entry.entry_id, {})
+    modem_ctrl_available = availability.get(
+        "modem_ctrl",
+        hass.data.get(DOMAIN, {}).get("modem_ctrl_available", False),
+    )
 
     if not modem_ctrl_available:
         _LOGGER.info("QModem entities not created - modem_ctrl is not available")
